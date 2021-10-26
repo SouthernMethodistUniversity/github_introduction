@@ -20,5 +20,5 @@ jobs:
         run: |
           git add github.pdf
           git commit -m "Updated presentation PDF."
-          git push origin master
+          git push origin main
 
