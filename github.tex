@@ -303,56 +303,34 @@ database", that helps to track changes and avoid general chaos.
 
 \begin{frame}{Git}
 
-Originally released in 2005 (by
+\begin{itemize}
+\item Originally released in 2005 (by
 \href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}
-himself!), \href{https://en.wikipedia.org/wiki/Git_(software)}{Git} was
+himself!).
+\item \href{https://en.wikipedia.org/wiki/Git_(software)}{Git} was
 one of the first version control systems that followed a
 \emph{distributed revision control} model (DRCS), in which it is no
 longer required to have a single server that all clients connect with.
-Instead, DRCS follows a peer-to-peer approach. in which each peer's
-working copy of the codebase is a fully-functional repository. These
-work by exchanging patches (sets of changes) between peers, resulting in
-some
-\href{https://en.wikipedia.org/wiki/Distributed_revision_control\#Distributed_vs._centralized}{key
-benefits over previous centralized systems}
-
-The
-\href{https://confluence.atlassian.com/display/STASH/Basic+Git+commands}{commands}
-used for interacting with Git are nearly identical to those for SVN,
-with a few additions/exceptions:
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}{}
+\begin{frame}{Basic Git Commands}
 
 \begin{description}
 \item[\mintinline{sh}{git clone}] this is the primary mechanism for retrieving
-  a local copy of a Git repository. Unlike the CVS and SVN
-  \mintinline{sh}{checkout} commands, the result is a full repository that may
-  act as a server for other client repositories.
+  a local copy of a Git repository.
 \item[\mintinline{sh}{git pull}] this fetches and merges changes on the remote
   server to your working repository.
 \item[\mintinline{sh}{git push}] the opposite of \mintinline{sh}{pull}, this sends all
   changes in your local repository to a remote repository.
+\item[\mintinline{sh}{git add}] Adds file(s) to be commited.
+\item[\mintinline{sh}{git commit}] Saves changes for file(s) that have been added.
 \end{description}
 
 \end{frame}
 
-\begin{frame}{}
-
-However, \emph{unlike SVN}, Git does not allow you to use the shortcut
-names for standard commands; for example \mintinline{sh}{git ci} is an illegal
-command, but \mintinline{sh}{git commit} is allowed.
-
-While distributed version control systems no longer require a main
-server, it is often useful to have a centralized, "agreed-upon" main
-repository that all users can access. As with subversion, there are a
-number of web sites that will host open-source Git-based software
-projects free of charge, including:
-
-\end{frame}
-
-\begin{frame}{}
+\begin{frame}{Git Repository Hosting}
 
 \begin{itemize}
 \item
