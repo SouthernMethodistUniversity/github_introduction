@@ -97,19 +97,19 @@ this?
 
 \begin{itemize}
 \item
-  \mintinline{sh}{my\_function.c}
+  \mintinline{sh}{my_function.c}
 \item
-  \mintinline{sh}{my\_function2.c}
+  \mintinline{sh}{my_function2.c}
 \item
-  \mintinline{sh}{my\_function3.c}
+  \mintinline{sh}{my_function3.c}
 \item
-  \mintinline{sh}{my\_function4.c}
+  \mintinline{sh}{my_function4.c}
 \item
-  \mintinline{sh}{my\_function\_old.c}
+  \mintinline{sh}{my_function_old.c}
 \item
-  \mintinline{sh}{my\_function\_older.c}
+  \mintinline{sh}{my_function_older.c}
 \item
-  \mintinline{sh}{my\_function\_even\_older.c}
+  \mintinline{sh}{my_function_even_older.c}
 \end{itemize}
 
 \end{frame}
@@ -136,93 +136,73 @@ this:
 
 \begin{frame}{Why use a VCS?}
 
-Our shared folder/naming system is fine for class projects or one-time
-papers, but is exceptionally bad for software projects. Do you imagine
+\begin{itemize}
+\item Our shared folder/naming system is fine for class projects or one-time
+papers, but is exceptionally bad for software projects.
+\item Imagine
 that the Windows source code sits in a shared folder named something
-like "Windows7-Latest-New", for anyone to edit? Or that every programmer
+like "Windows10-Latest-New", for anyone to edit? Or that every programmer
 just works on different files in the same folder?
-
-For projects that are large, fast-changing, or have multiple authors, a
-Version Control System (VCS) is critical. Think of a VCS as a "file
-database", that helps to track changes and avoid general chaos. A good
-VCS does the following:
+\item For projects that are large, fast-changing, or have multiple authors, a
+Version Control System (VCS) is critical.
+\item Think of a VCS as a "file
+database", that helps to track changes and avoid general chaos.
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}{Why use a VCS?}
 
-\begin{itemize}
-\item
-  \emph{Backup and Restore} -\/- files are saved as they are edited, and
+\begin{description}
+\item[Backup and Restore] files are saved as they are edited, and
   you can jump to any moment in time. Need that file as it was on March
   8? No problem.
-\item
-  \emph{Synchronization} -\/- Allows people to share files and stay up
+\item[Synchronization] Allows people to share files and stay up
   to date with the latest version.
-\item
-  \emph{Short-term undo} -\/- Did you try to "fix" a file and just mess
+\item[Short-term undo] Did you try to ``fix'' a file and just mess
   it up? Throw away your changes and go back to the last "correct"
   version in the database.
-\item
-  \emph{Long-term undo} -\/- Sometimes we mess up bad. Suppose you made
+\item[Long-term undo] Sometimes we mess up bad. Suppose you made
   a change a year ago, and it had a bug that you never caught until now.
   Jump back to the old version, and see what change was made that day.
   Maybe you can fix that one bug and not have to undo your work for the
   whole year?
-\end{itemize}
+\end{description}
 \end{frame}
 
 \begin{frame}{Why use a VCS?}
 
-\begin{itemize}
-\item
-  \emph{Track Changes} -\/- As files are updated, you can leave messages
+\begin{description}
+\item[Track Changes] As files are updated, you can leave messages
   explaining why the change happened (these are stored in the VCS, not
   the file). This makes it easy to see how a file is evolving over time,
   and why it was changed.
-\item
-  \emph{Track Ownership} -\/- A VCS tags every change with the name of
+\item[Track Ownership] A VCS tags every change with the name of
   the person who made it, which can be hepful for laying blame \emph{or}
   giving credit.
-\item
-  \emph{Sandboxing} (i.e.~insurance against yourself) -\/- Plan to make
+\item[Sandboxing] (i.e.~insurance against yourself) -\/- Plan to make
   a big change? You can make temporary changes in an isolated area, test
   and work out the kinks before "checking in" your set of changes.
-\item
-  \emph{Branching and merging} -\/- A larger sandbox. You can branch a
+\item[Branching and merging] A larger sandbox. You can branch a
   copy of your code into a separate area and modify it in isolation
   (tracking changes separately). Later, you can merge your work back
   into the common area.
-\end{itemize}
-
-Shared folders are quick and simple, but can't provide these critical
-features.
-
+\end{description}
 \end{frame}
 
 \section{Definitions}
 
 \begin{frame}{General definitions}
 
-Most version control systems involve the following concepts, though the
-labels may be different.
-
-Basic setup:
-
-\begin{itemize}
-\item
-  \emph{Repository (repo)} -\/- The database storing the files.
-\item
-  \emph{Server} -\/- The computer storing the repo.
-\item
-  \emph{Client} -\/- The computer connecting to the repo.
-\item
-  \emph{Working Set/Working Copy} -\/- Your local directory of files,
+\begin{description}
+\item[Repository (repo)] The database storing the files.
+\item[Server] The computer storing the repo.
+\item[Client] The computer connecting to the repo.
+\item[Working Copy] Your local directory of files,
   where you make changes.
-\item
-  \emph{Trunk/Main} -\/- The primary location for code in the repo.
+\item[Trunk/Main] The primary location for code in the repo.
   Think of code as a family tree --- the trunk is the main line.
-\end{itemize}
+\end{description}
 
 \end{frame}
 
@@ -230,82 +210,65 @@ Basic setup:
 
 \begin{frame}{Basic actions}
 
-\begin{itemize}
-\item
-  \emph{Add} -\/- Put a file into the repo for the first time,
+\begin{description}
+\item[Add] Put a file into the repo for the first time,
   i.e.~begin tracking it with Version Control.
-\item
-  \emph{Revision} -\/- What version a file is on (v1, v2, v3, etc.).
-\item
-  \emph{Head/Tip} -\/- The latest revision in the repo.
-\item
-  \emph{Check out} -\/- Download a file from the repo.
-\item
-  \emph{Check in} -\/- Upload a file to the repository (if it has
-  changed). The file gets a new revision number, and people can "check
-  out" the latest one.
-  \end{itemize}
+\item[Revision] What version a file is on (v1, v2, v3, etc.).
+\item[Head/Tip] The latest revision in the repo.
+\item[Check Out] Download a file from the repo.
+\item[Check In] Upload a file to the repository (if it has
+  changed). The file gets a new revision number, and people can ``check
+  out'' the latest one.
+  \end{description}
   
   \end{frame}
 
 \begin{frame}{Basic actions}
 
-\begin{itemize}
-\item
-  \emph{Checkin Message} -\/- A short message describing what was
+\begin{description}
+\item[Checkin Message] A short message describing what was
   changed.
-\item
-  \emph{Changelog/History} -\/- A list of changes made to a file since
+\item[Changelog/History] A list of changes made to a file since
   it was created.
-\item
-  \emph{Update/Sync} -\/- Synchronize your files with the latest from
+\item[Update/Sync] Synchronize your files with the latest from
   the repository. This lets you grab the latest revisions of all files.
-\item
-  \emph{Revert} -\/- Throw away your local changes and reload the latest
+\item[Revert] Throw away your local changes and reload the latest
   version from the repository.
-\end{itemize}
+\end{description}
 
 \end{frame}
 
 \begin{frame}{More advanced actions}
 
-\begin{itemize}
-\item
-  \emph{Branch} -\/- Create a separate copy of a file/folder for private
+\begin{description}
+\item[Branch] Create a separate copy of a file/folder for private
   use (bug fixing, testing, etc). Branch is both a verb ("branch the
   code") and a noun ("Which branch is it in?").
-\item
-  \emph{Diff/Change/Delta} -\/- Finding the differences between two
+\item[Diff/Change/Delta] Finding the differences between two
   files. Useful for seeing what changed between revisions.
-\item
-  \emph{Merge/Patch} -\/- Apply the changes from one file to another, to
+\item[Merge/Patch] Apply the changes from one file to another, to
   bring it up-to-date. For example, you can merge features from one
   branch into another.
-\item
-  \emph{Conflict} -\/- When pending changes to a file contradict each
+\item[Conflict] When pending changes to a file contradict each
   other (both changes cannot be applied automatically).
-\end{itemize}
+\end{description}
 \end{frame}
 
 \begin{frame}{More advanced actions}
 
-\begin{itemize}
-\item
-  \emph{Resolve} -\/- Fixing the changes that contradict each other and
+\begin{description}
+\item[Resolve] Fixing the changes that contradict each other and
   checking in the final version.
-\item
-  \emph{Locking} -\/- Taking control of a file so nobody else can edit
+\item[Locking] Taking control of a file so nobody else can edit
   it until you unlock it. Some version control systems use this to avoid
   conflicts.
-\item
-  \emph{Breaking the lock} -\/- Forcibly unlocking a file so you can
+\item[Breaking the lock] Forcibly unlocking a file so you can
   edit it. It may be needed if someone locks a file and goes on
   vacation.
-\item
-  \emph{Check out for edit} -\/- Checking out an "editable" version of a
+\item[Check out for edit] Checking out an "editable" version of a
   file. Some VCSes have editable files by default, others require an
   explicit command.
-\end{itemize}
+\end{description}
 
 \end{frame}
 
