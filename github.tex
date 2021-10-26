@@ -1,0 +1,495 @@
+\documentclass[aspectratio=169]{beamer}
+   \usetheme{metropolis}
+   \setbeamertemplate{blocks}[rounded][shadow=false]
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{dcolumn}
+   \newcolumntype{d}[1]{D{.}{.}{#1}}
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+\usepackage{adjustbox}
+\usepackage{color}
+\usepackage{textpos}
+\usepackage{etoolbox}
+\usepackage[cache=false]{minted}
+\usepackage{multimedia}
+
+\makeatletter
+\patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip0.5em}{}{}
+\makeatother
+
+\definecolor{smured}{rgb}{0.797,0,0.027}
+\definecolor{smublue}{RGB}{48,64,116}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{text_gray}{RGB}{46,58,62}
+
+\setbeamercolor{progress bar}{fg=smured,bg=smublue}
+\setbeamercolor{title separator}{fg=smublue}
+\setbeamercolor{frametitle}{bg=smublue}
+
+\metroset{
+  numbering=fraction
+}
+
+\hypersetup{
+  colorlinks=true,
+  allcolors=text_gray,
+  urlcolor=smured,
+}
+
+\addtobeamertemplate{frametitle}{}{
+\begin{textblock*}{1cm}(\textwidth,-1.155cm)
+\includegraphics[width=1cm]{figures/smu_logo.pdf}
+\end{textblock*}}
+
+\setminted{breaklines,linenos,fontsize=\scriptsize}
+\setmintedinline{fontsize=auto}
+
+\title{GitHub Introduction}
+\author{Robert Kalescky\\ HPC Applications Scientist}
+\institute{
+Research and Data Sciences Services\\
+Office of Information Technology\\
+Center for Research Computing\\
+Southern Methodist University}
+\date{August 26, 2021}
+
+\begin{document}
+
+{
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain,noframenumbering]
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{figures/DataIsntScary.jpg}}
+\end{frame}
+}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\footnotesize
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+\input{introduction.tex}
+
+\section{Version control systems}
+
+\begin{frame}{Version control systems}
+
+Version Control (aka \emph{revision control} or \emph{source control})
+lets you track the history of your files over time. Why do you care? So
+when you mess up you can easily get back to a previous version that
+worked.
+
+You've probably invented your own simple version control system in the
+past without realizing it. Do you have an directories with files like
+this?
+
+\end{frame}
+
+\begin{frame}{Version control systems}
+
+\begin{itemize}
+\item
+  my\_function.c
+\item
+  my\_function2.c
+\item
+  my\_function3.c
+\item
+  my\_function4.c
+\item
+  my\_function\_old.c
+\item
+  my\_function\_older.c
+\item
+  my\_function\_even\_older.c
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Version control systems}
+
+It's why we use "Save As"; you want to save the new file without writing
+over the old one. It's a common problem, and solutions are usually like
+this:
+
+\begin{itemize}
+\item
+  Make a \emph{single backup copy} (e.g.~Document.old.txt).
+\item
+  If we're clever, we add a \emph{version number} or \emph{date}: e.g.
+  Document\_V1.txt, DocumentMarch2012.txt.
+\item
+  We may even use a \emph{shared folder} so other people can see and
+  edit files without sending them by email. Hopefully they rename the
+  file after they save it.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Why use a VCS?}
+
+Our shared folder/naming system is fine for class projects or one-time
+papers, but is exceptionally bad for software projects. Do you imagine
+that the Windows source code sits in a shared folder named something
+like "Windows7-Latest-New", for anyone to edit? Or that every programmer
+just works on different files in the same folder?
+
+For projects that are large, fast-changing, or have multiple authors, a
+Version Control System (VCS) is critical. Think of a VCS as a "file
+database", that helps to track changes and avoid general chaos. A good
+VCS does the following:
+
+\end{frame}
+
+\begin{frame}{Why use a VCS?}
+
+\begin{itemize}
+\item
+  \emph{Backup and Restore} -\/- files are saved as they are edited, and
+  you can jump to any moment in time. Need that file as it was on March
+  8? No problem.
+\item
+  \emph{Synchronization} -\/- Allows people to share files and stay up
+  to date with the latest version.
+\item
+  \emph{Short-term undo} -\/- Did you try to "fix" a file and just mess
+  it up? Throw away your changes and go back to the last "correct"
+  version in the database.
+\item
+  \emph{Long-term undo} -\/- Sometimes we mess up bad. Suppose you made
+  a change a year ago, and it had a bug that you never caught until now.
+  Jump back to the old version, and see what change was made that day.
+  Maybe you can fix that one bug and not have to undo your work for the
+  whole year?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why use a VCS?}
+
+\begin{itemize}
+\item
+  \emph{Track Changes} -\/- As files are updated, you can leave messages
+  explaining why the change happened (these are stored in the VCS, not
+  the file). This makes it easy to see how a file is evolving over time,
+  and why it was changed.
+\item
+  \emph{Track Ownership} -\/- A VCS tags every change with the name of
+  the person who made it, which can be hepful for laying blame \emph{or}
+  giving credit.
+\item
+  \emph{Sandboxing} (i.e.~insurance against yourself) -\/- Plan to make
+  a big change? You can make temporary changes in an isolated area, test
+  and work out the kinks before "checking in" your set of changes.
+\item
+  \emph{Branching and merging} -\/- A larger sandbox. You can branch a
+  copy of your code into a separate area and modify it in isolation
+  (tracking changes separately). Later, you can merge your work back
+  into the common area.
+\end{itemize}
+
+Shared folders are quick and simple, but can't provide these critical
+features.
+
+\end{frame}
+
+\section{Definitions}
+
+\begin{frame}{General definitions}
+
+Most version control systems involve the following concepts, though the
+labels may be different.
+
+Basic setup:
+
+\begin{itemize}
+\item
+  \emph{Repository (repo)} -\/- The database storing the files.
+\item
+  \emph{Server} -\/- The computer storing the repo.
+\item
+  \emph{Client} -\/- The computer connecting to the repo.
+\item
+  \emph{Working Set/Working Copy} -\/- Your local directory of files,
+  where you make changes.
+\item
+  \emph{Trunk/Main} -\/- The primary location for code in the repo.
+  Think of code as a family tree --- the trunk is the main line.
+\end{itemize}
+
+\end{frame}
+
+\section{Usage}
+
+\begin{frame}{Basic actions}
+
+\begin{itemize}
+\item
+  \emph{Add} -\/- Put a file into the repo for the first time,
+  i.e.~begin tracking it with Version Control.
+\item
+  \emph{Revision} -\/- What version a file is on (v1, v2, v3, etc.).
+\item
+  \emph{Head/Tip} -\/- The latest revision in the repo.
+\item
+  \emph{Check out} -\/- Download a file from the repo.
+\item
+  \emph{Check in} -\/- Upload a file to the repository (if it has
+  changed). The file gets a new revision number, and people can "check
+  out" the latest one.
+  \end{itemize}
+  
+  \end{frame}
+
+\begin{frame}{Basic actions}
+
+\begin{itemize}
+\item
+  \emph{Checkin Message} -\/- A short message describing what was
+  changed.
+\item
+  \emph{Changelog/History} -\/- A list of changes made to a file since
+  it was created.
+\item
+  \emph{Update/Sync} -\/- Synchronize your files with the latest from
+  the repository. This lets you grab the latest revisions of all files.
+\item
+  \emph{Revert} -\/- Throw away your local changes and reload the latest
+  version from the repository.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{More advanced actions}
+
+\begin{itemize}
+\item
+  \emph{Branch} -\/- Create a separate copy of a file/folder for private
+  use (bug fixing, testing, etc). Branch is both a verb ("branch the
+  code") and a noun ("Which branch is it in?").
+\item
+  \emph{Diff/Change/Delta} -\/- Finding the differences between two
+  files. Useful for seeing what changed between revisions.
+\item
+  \emph{Merge/Patch} -\/- Apply the changes from one file to another, to
+  bring it up-to-date. For example, you can merge features from one
+  branch into another.
+\item
+  \emph{Conflict} -\/- When pending changes to a file contradict each
+  other (both changes cannot be applied automatically).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{More advanced actions}
+
+\begin{itemize}
+\item
+  \emph{Resolve} -\/- Fixing the changes that contradict each other and
+  checking in the final version.
+\item
+  \emph{Locking} -\/- Taking control of a file so nobody else can edit
+  it until you unlock it. Some version control systems use this to avoid
+  conflicts.
+\item
+  \emph{Breaking the lock} -\/- Forcibly unlocking a file so you can
+  edit it. It may be needed if someone locks a file and goes on
+  vacation.
+\item
+  \emph{Check out for edit} -\/- Checking out an "editable" version of a
+  file. Some VCSes have editable files by default, others require an
+  explicit command.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Typical Usage}
+
+\begin{itemize}
+\item
+  Alice adds a file (ShoppingList.txt) to the repository.
+\item
+  Alice checks out the file, makes a change (puts "milk" on the list),
+  and checks it back in with a checkin message ("Added delicious
+  beverage.").
+\item
+  The next morning, Bob updates his local working set and sees the
+  latest revision of ShoppingList.txt, which contains "milk".
+\item
+  Bob adds "donuts" to the list, while Alice also adds "eggs" to the
+  list.
+\item
+  Bob checks the list in, with a checking message
+  \href{https://www.youtube.com/watch?v=8-4P1WPE-Qg}{"Mmmmm, donuts"}.
+\item
+  Alice updates her copy of the list before checking it in, and notices
+  that there is a conflict. Realizing that the order of items doesn't
+  matter, she merges the changes by putting both "donuts" and "eggs" on
+  the list, and checks in the final version.
+\end{itemize}
+
+\end{frame}
+
+\section{Git}
+
+\begin{frame}{Git}
+
+Originally released in 2005 (by
+\href{https://en.wikipedia.org/wiki/Linus_Torvalds}{Linus Torvalds}
+himself!), \href{https://en.wikipedia.org/wiki/Git_(software)}{Git} was
+one of the first version control systems that followed a
+\emph{distributed revision control} model (DRCS), in which it is no
+longer required to have a single server that all clients connect with.
+Instead, DRCS follows a peer-to-peer approach. in which each peer's
+working copy of the codebase is a fully-functional repository. These
+work by exchanging patches (sets of changes) between peers, resulting in
+some
+\href{https://en.wikipedia.org/wiki/Distributed_revision_control\#Distributed_vs._centralized}{key
+benefits over previous centralized systems}
+
+The
+\href{https://confluence.atlassian.com/display/STASH/Basic+Git+commands}{commands}
+used for interacting with Git are nearly identical to those for SVN,
+with a few additions/exceptions:
+
+\end{frame}
+
+\begin{frame}{}
+
+\begin{itemize}
+\item
+  \texttt{git\ clone} -\/- this is the primary mechanism for retrieving
+  a local copy of a Git repository. Unlike the CVS and SVN
+  \texttt{checkout} commands, the result is a full repository that may
+  act as a server for other client repositories.
+\item
+  \texttt{git\ pull} -\/- this fetches and merges changes on the remote
+  server to your working repository.
+\item
+  \texttt{git\ push} -\/- the opposite of \texttt{pull}, this sends all
+  changes in your local repository to a remote repository.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{}
+
+However, \emph{unlike SVN}, Git does not allow you to use the shortcut
+names for standard commands; for example \texttt{git\ ci} is an illegal
+command, but \texttt{git\ commit} is allowed.
+
+While distributed version control systems no longer require a main
+server, it is often useful to have a centralized, "agreed-upon" main
+repository that all users can access. As with subversion, there are a
+number of web sites that will host open-source Git-based software
+projects free of charge, including:
+
+\end{frame}
+
+\begin{frame}{}
+
+\begin{itemize}
+\item
+  \href{https://bitbucket.org/dashboard/overview}{Bitbucket}
+\item
+  \href{https://github.com/}{GitHub}
+\item
+  \href{https://gitorious.org/}{Gitorious}
+\item
+  \href{http://www.cloudforge.com/}{CloudForge}
+\item
+  \href{http://projectlocker.com/}{ProjectLocker}
+\item
+  \href{http://offers.assembla.com/free-git-hosting/}{Assembla}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Git Resources}
+
+\begin{itemize}
+\item
+  \href{http://git-scm.com/}{Main Git site}
+\item
+  \href{http://www.atlassian.com/git/tutorial}{Git tutorials}
+\item
+  \href{http://git-scm.com/book}{Git book chapters}
+\end{itemize}
+
+\end{frame}
+
+\section{GitHub}
+
+\begin{frame}{GitHub Instances}
+
+SMU faculty, staff, and students have access to two distinct instances
+of GitHub.
+
+\begin{itemize}
+\item
+  \href{https://www.github.com}{github.com}
+
+  \begin{itemize}
+    \item
+    Sign-up for free at \href{https://www.github.com}{github.com}
+  \item
+    Sign-up for GitHub Education Benefits at
+    \href{https://education.github.com}{education.github.com}, which
+    provides access to most of the pay-only benefits
+    \end{itemize}
+\item
+    \href{https://github.smu.edu}{github.smu.edu}
+    \begin{itemize}
+  \item
+    Log into \href{https://github.smu.edu}{github.smu.edu} using your
+    SMU credentials
+  \item
+    Has all premium features
+  \item
+    Only private repositories
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Repository Walkthrough}
+
+\begin{enumerate}
+\item
+  Creating repositories
+\item
+  Branching
+\item
+  Merging
+\item
+  Pushing and pulling
+\item
+  Pull requests
+\item
+  Forking
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Useful Repository Management Tips}
+
+\begin{enumerate}
+\item
+  SSH keys
+\item
+  Branch restrictions
+\item
+  Project management
+\item
+  Actions
+\end{enumerate}
+
+\end{frame}
+
+\end{document}
