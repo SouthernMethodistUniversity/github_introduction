@@ -12,4 +12,9 @@ jobs:
       - run: |
           make
         name: LaTeX Build
+      - name: Commit
+        run: |
+          git add github.pdf
+          git commit -m "Updated presentation PDF."
+          git push origin master
 
