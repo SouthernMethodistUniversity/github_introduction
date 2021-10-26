@@ -325,27 +325,24 @@ with a few additions/exceptions:
 
 \begin{frame}{}
 
-\begin{itemize}
-\item
-  \texttt{git\ clone} -\/- this is the primary mechanism for retrieving
+\begin{description}
+\item[\mintinline{sh}{git clone}] this is the primary mechanism for retrieving
   a local copy of a Git repository. Unlike the CVS and SVN
-  \texttt{checkout} commands, the result is a full repository that may
+  \mintinline{sh}{checkout} commands, the result is a full repository that may
   act as a server for other client repositories.
-\item
-  \texttt{git\ pull} -\/- this fetches and merges changes on the remote
+\item[\mintinline{sh}{git pull}] this fetches and merges changes on the remote
   server to your working repository.
-\item
-  \texttt{git\ push} -\/- the opposite of \texttt{pull}, this sends all
+\item[\mintinline{sh}{git push}] the opposite of \mintinline{sh}{pull}, this sends all
   changes in your local repository to a remote repository.
-\end{itemize}
+\end{description}
 
 \end{frame}
 
 \begin{frame}{}
 
 However, \emph{unlike SVN}, Git does not allow you to use the shortcut
-names for standard commands; for example \texttt{git\ ci} is an illegal
-command, but \texttt{git\ commit} is allowed.
+names for standard commands; for example \mintinline{sh}{git ci} is an illegal
+command, but \mintinline{sh}{git commit} is allowed.
 
 While distributed version control systems no longer require a main
 server, it is often useful to have a centralized, "agreed-upon" main
