@@ -5,7 +5,7 @@ on:
 jobs:
   container:
     runs-on: ubuntu-latest
-    container: texlive:latest
+    container: texlive/texlive:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
